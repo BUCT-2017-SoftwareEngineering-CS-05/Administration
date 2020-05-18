@@ -7,16 +7,13 @@
         label-width="100px"
         style="width: 600px; margin-left:150px;"
       >
-        <el-form-item label="姓名">
-          <el-input v-model="formData.name" style="width: 300px; margin-left:-200px;" disabled />
+        <el-form-item label="备份名称">
+          <el-input v-model="formData.name" disabled />
         </el-form-item>
-        <el-form-item label="账号">
-          <el-input v-model="formData.account" disabled />
+        <el-form-item label="备份内容">
+          <el-input v-model="formData.account" style="height: 300px;" disabled />
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="formData.password" disabled />
-        </el-form-item>
-        <el-form-item label="联系电话">
+        <el-form-item label="其他信息">
           <el-input v-model="formData.phone" disabled />
         </el-form-item>
       </el-form>

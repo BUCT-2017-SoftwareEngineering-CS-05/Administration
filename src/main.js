@@ -18,9 +18,6 @@ import './utils/error-log' // error log
 
 import * as filters from './filters' // global filters
 
-import md5 from 'js-md5';
-Vue.prototype.$md5 = md5;
-
 Vue.use(Element, {
   size: Cookies.get('size') || 'medium' // set element-ui default size
 })
