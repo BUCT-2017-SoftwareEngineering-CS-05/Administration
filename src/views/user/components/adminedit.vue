@@ -8,16 +8,16 @@
         style="width: 400px; margin-left:50px;"
       >
         <el-form-item label="ID">
-          <el-input v-model="id" placeholder="scope.$index" disabled />
+          <el-input v-model="formData.userid" disabled />
         </el-form-item>
         <el-form-item label="账号">
-          <el-input v-model="formData.account" disabled />
+          <el-input v-model="formData.nickname" disabled />
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input v-model="formData.password" disabled />
-        </el-form-item>
-        <el-form-item label="联系电话">
-          <el-input v-model="formData.phone" disabled />
+        <el-form-item label="密码" style="margin-left:5px;">
+          <el-input v-model="formData.userpwd" />
+          <el-button @click="onSubmit">
+            修改
+          </el-button>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import { changepwd } from '@/api/table'
 export default {
   props: {
     title: {
@@ -49,11 +50,19 @@ export default {
   data() {
     return {
       visible: false,
-      id: 1
+      formData: {}
     }
   },
   created() {
     this.formData = Object.assign({}, this.data)
+  },
+  methods: {
+    onSubmit({ commit }) { // 修改密码
+      changepwd(this.formData.userpwd).then(response => {
+        commit('SET_TOKEN', this.formData.userpwd)
+        console.log('修改成功')
+      })
+    }
   }
 }
 </script>

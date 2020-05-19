@@ -10,7 +10,7 @@
     >
       <el-table-column align="center" label="ID" width="195">
         <template slot-scope="scope">
-          {{ scope.$index }}
+          {{ scope.row.userid }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="昵称" width="395">
@@ -25,11 +25,11 @@
       </el-table-column>
       <el-table-column class-name="coright-col" label="评论状态" width="210" align="center">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.coright | corightFilter">{{ scope.row.coright }}</el-tag>
+          <el-tag :type="scope.row.coright | corightFilter">{{ review[scope.row.coright] }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="210" align="center">
-        <template slot-scope="scope">
+        <template slot-scope="{ row }">
           <adminedit title="用户信息" :data="row" align="center">
             <el-button
               size="mini"
@@ -38,7 +38,7 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
+            @click="handleDelete(row)"
           >删除</el-button>
         </template>
       </el-table-column>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { getList } from '@/api/table'
+import { getList, deleteuser } from '@/api/table'
 import adminedit from './components/adminedit'
 import Pagination from '@/components/Pagination'
 
@@ -63,8 +63,8 @@ export default {
   filters: {
     corightFilter(status) {
       const statusMap = {
-        可以评论: 'success',
-        禁止评论: 'danger'
+        1: 'success',
+        0: 'danger'
       }
       return statusMap[status]
     }
@@ -74,20 +74,31 @@ export default {
       list: null,
       listLoading: true,
       total: 100,
-      listQuery: {}
+      listQuery: {},
+      review: ['禁止评论', '可以评论']
     }
   },
   created() {
-    this.fetchData()
     this.parseQuery()
+  },
+  mounted() {
+    this.fetchData()
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (to.query !== from.query) {
+      this.fetchData()
+    }
+    next()
   },
   methods: {
     fetchData() {
       this.listLoading = true
       getList(this.listQuery).then(response => {
+        console.log(this.listQuery)
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
+        console.log(this.list)
       })
     },
     parseQuery() {
@@ -104,6 +115,7 @@ export default {
           ...listQuery,
           ...query
         }
+        console.log(query)
       }
       this.listQuery = listQuery
     },
@@ -113,8 +125,30 @@ export default {
         query: this.listQuery
       })
     },
-    handleDelete(index, row) {
-      console.log(index, row)
+    forceRefresh() {
+      window.location.reload()
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.refresh()
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该用户?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteuser(row.userid).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.fetchData()
+          this.handleFilter()
+        })
+      })
     }
   }
 }
