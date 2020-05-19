@@ -113,7 +113,18 @@ export const asyncRoutes = [
       }
     ]
   },
-  { path: '/data', component: () => import('@/views/data/index'), meta: { title: '数据管理', icon: 'documentation' }},
+  { path: '/data',
+    component: Layout,
+    redirect: '/data',
+    children: [
+      {
+        path: '/data/index',
+        component: () => import('@/views/data/index'),
+        name: 'data',
+        meta: { title: '数据管理', icon: 'edit' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
