@@ -42,6 +42,13 @@ service.interceptors.response.use(
           })
         })
       }
+      if (res.code === -1) {
+        MessageBox.confirm('您没有权限修改用户密码！', {
+          confirmButtonText: '确认',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+      }
       return Promise.reject(new Error(errMsg))
     } else {
       return res

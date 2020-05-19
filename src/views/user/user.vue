@@ -30,11 +30,11 @@
       </el-table-column>
       <el-table-column label="操作" width="210" align="center">
         <template slot-scope="{ row }">
-          <adminedit title="用户信息" :data="row" align="center">
+          <useredit title="用户信息" :data="row" align="center">
             <el-button
               size="mini"
             >编辑</el-button>
-          </adminedit>
+          </useredit>
           <el-button
             size="mini"
             type="danger"
@@ -55,11 +55,11 @@
 
 <script>
 import { getList, deleteuser } from '@/api/table'
-import adminedit from './components/adminedit'
+import useredit from './components/useredit'
 import Pagination from '@/components/Pagination'
 
 export default {
-  components: { adminedit, Pagination },
+  components: { useredit, Pagination },
   filters: {
     corightFilter(status) {
       const statusMap = {
@@ -72,6 +72,7 @@ export default {
   data() {
     return {
       list: null,
+      deleteform: { 'userid': '' },
       listLoading: true,
       total: 100,
       listQuery: {},
@@ -98,7 +99,6 @@ export default {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
-        console.log(this.list)
       })
     },
     parseQuery() {
@@ -138,7 +138,8 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteuser(row.userid).then(response => {
+        this.deleteform.userid = row.userid
+        deleteuser(this.deleteform).then(response => {
           this.$notify({
             title: '成功',
             message: response.msg || '删除成功',

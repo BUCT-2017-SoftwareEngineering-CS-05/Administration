@@ -1,43 +1,30 @@
 <template>
-  <div>
-    <el-button
-      class="filter-item"
-      type="primary"
-      text-align="center"
-      icon="el-icon-edit"
-      style="margin-bottom: 5px;margin-top: 5px;margin-left: 20px"
-      @click="handleCreate"
-    >
-      新增管理员
-    </el-button>
+  <div class="app-container">
     <el-table
-      :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-      style="width: 100%"
-      align="center"
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
     >
-      <el-table-column
-        label="姓名"
-        prop="name"
-      />
-      <el-table-column
-        label="账号"
-        prop="account"
-      />
-      <el-table-column
-        label="联系电话"
-        prop="phone"
-      />
-      <el-table-column
-        align="right"
-      >
-        <template slot="header">
-          <el-input
-            v-model="search"
-            size="mini"
-            placeholder="输入关键字搜索"
-          />
-        </template>
+      <el-table-column align="center" label="ID" width="195">
         <template slot-scope="scope">
+          {{ scope.row.userid }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="昵称" width="395">
+        <template slot-scope="scope">
+          {{ scope.row.nickname }}
+        </template>
+      </el-table-column>
+      <el-table-column label="密码" width="210" align="center">
+        <template>
+          <span>{{ '******' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="210" align="center">
+        <template slot-scope="{ row }">
           <adminedit title="管理员信息" :data="row" align="center">
             <el-button
               size="mini"
@@ -46,44 +33,110 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
+            @click="handleDelete(row)"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <pagination
+      v-show="total >= 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.pageSize"
+      @pagination="refresh"
+    />
   </div>
 </template>
-<script>
 
+<script>
+import { getList, deleteuser } from '@/api/admin'
 import adminedit from './components/adminedit'
+import Pagination from '@/components/Pagination'
 
 export default {
-  components: { adminedit },
+  components: { adminedit, Pagination },
+  filters: {
+  },
   data() {
     return {
-      tableData: [{
-        name: '王一',
-        account: '1705',
-        phone: '13888888887'
-      }, {
-        name: '王二',
-        account: '1704',
-        phone: '13888888888'
-      }, {
-        name: '王三',
-        account: '1703',
-        phone: '13888888889'
-      }, {
-        name: '王四',
-        account: '1702',
-        phone: '13888888880'
-      }],
-      search: ''
+      list: null,
+      deleteform: { 'userid': '' },
+      listLoading: true,
+      total: 100,
+      listQuery: {}
     }
   },
+  created() {
+    this.parseQuery()
+  },
+  mounted() {
+    this.fetchData()
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (to.query !== from.query) {
+      this.fetchData()
+    }
+    next()
+  },
   methods: {
-    handleDelete(index, row) {
-      console.log(index, row)
+    fetchData() {
+      this.listLoading = true
+      getList(this.listQuery).then(response => {
+        console.log(this.listQuery)
+        this.list = response.data.items
+        this.total = response.data.total
+        this.listLoading = false
+      })
+    },
+    parseQuery() {
+      // 收集查询条件
+      const query = Object.assign({}, this.$route.query)
+      let listQuery = {
+        page: 1,
+        pageSize: 20
+      }
+      if (query) {
+        query.page && (query.page = Number(query.page))
+        query.pageSize && (query.pageSize = Number(query.pageSize))
+        listQuery = {
+          ...listQuery,
+          ...query
+        }
+        console.log(query)
+      }
+      this.listQuery = listQuery
+    },
+    refresh() {
+      this.$router.push({
+        path: '/user/user',
+        query: this.listQuery
+      })
+    },
+    forceRefresh() {
+      window.location.reload()
+    },
+    handleFilter() {
+      this.listQuery.page = 1
+      this.refresh()
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该管理员?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteform.userid = row.userid
+        deleteuser(this.deleteform).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.fetchData()
+          this.handleFilter()
+        })
+      })
     }
   }
 }

@@ -52,12 +52,47 @@ export default [
     type: 'post',
     response: config => {
       return {
-        code: 0
+        code: 0,
+        msg: '密码修改成功！'
       }
     }
   },
   {
     url: '/vue-element-admin/user/delete',
+    type: 'post',
+    response: config => {
+      return {
+        code: 0,
+        msg: '删除成功'
+      }
+    }
+  },
+  {
+    url: '/vue-element-admin/admin/list',
+    type: 'get',
+    response: config => {
+      const items = data.items
+      return {
+        code: 0,
+        data: {
+          total: items.length,
+          items: items
+        }
+      }
+    }
+  },
+  {
+    url: '/vue-element-admin/admin/changepwd',
+    type: 'post',
+    response: config => {
+      return {
+        code: 0,
+        msg: '密码修改成功！'
+      }
+    }
+  },
+  {
+    url: '/vue-element-admin/admin/delete',
     type: 'post',
     response: config => {
       return {
