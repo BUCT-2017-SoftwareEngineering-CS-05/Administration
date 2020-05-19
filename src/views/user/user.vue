@@ -1,32 +1,34 @@
 <template>
-  <div>
+  <div class="app-container">
     <el-table
-      :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
-      style="width: 100%"
-      align="center"
+      v-loading="listLoading"
+      :data="list"
+      element-loading-text="Loading"
+      border
+      fit
+      highlight-current-row
     >
-      <el-table-column
-        label="姓名"
-        prop="name"
-      />
-      <el-table-column
-        label="账号"
-        prop="account"
-      />
-      <el-table-column
-        label="联系电话"
-        prop="phone"
-      />
-      <el-table-column
-        align="right"
-      >
-        <template slot="header">
-          <el-input
-            v-model="search"
-            size="mini"
-            placeholder="输入关键字搜索"
-          />
+      <el-table-column align="center" label="ID" width="195">
+        <template slot-scope="scope">
+          {{ scope.$index }}
         </template>
+      </el-table-column>
+      <el-table-column align="center" label="昵称" width="395">
+        <template slot-scope="scope">
+          {{ scope.row.nickname }}
+        </template>
+      </el-table-column>
+      <el-table-column label="密码" width="210" align="center">
+        <template>
+          <span>{{ '******' }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column class-name="coright-col" label="评论状态" width="210" align="center">
+        <template slot-scope="scope">
+          <el-tag :type="scope.row.coright | corightFilter">{{ scope.row.coright }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="210" align="center">
         <template slot-scope="scope">
           <adminedit title="用户信息" :data="row" align="center">
             <el-button
@@ -41,37 +43,76 @@
         </template>
       </el-table-column>
     </el-table>
+    <pagination
+      v-show="total >= 0"
+      :total="total"
+      :page.sync="listQuery.page"
+      :limit.sync="listQuery.pageSize"
+      @pagination="refresh"
+    />
   </div>
 </template>
-<script>
 
+<script>
+import { getList } from '@/api/table'
 import adminedit from './components/adminedit'
+import Pagination from '@/components/Pagination'
 
 export default {
-  components: { adminedit },
-  data() {
-    return {
-      tableData: [{
-        name: '王一',
-        account: '1705',
-        phone: '13888888887'
-      }, {
-        name: '王二',
-        account: '1704',
-        phone: '13888888888'
-      }, {
-        name: '王三',
-        account: '1703',
-        phone: '13888888889'
-      }, {
-        name: '王四',
-        account: '1702',
-        phone: '13888888880'
-      }],
-      search: ''
+  components: { adminedit, Pagination },
+  filters: {
+    corightFilter(status) {
+      const statusMap = {
+        可以评论: 'success',
+        禁止评论: 'danger'
+      }
+      return statusMap[status]
     }
   },
+  data() {
+    return {
+      list: null,
+      listLoading: true,
+      total: 100,
+      listQuery: {}
+    }
+  },
+  created() {
+    this.fetchData()
+    this.parseQuery()
+  },
   methods: {
+    fetchData() {
+      this.listLoading = true
+      getList(this.listQuery).then(response => {
+        this.list = response.data.items
+        this.total = response.data.total
+        this.listLoading = false
+      })
+    },
+    parseQuery() {
+      // 收集查询条件
+      const query = Object.assign({}, this.$route.query)
+      let listQuery = {
+        page: 1,
+        pageSize: 20
+      }
+      if (query) {
+        query.page && (query.page = Number(query.page))
+        query.pageSize && (query.pageSize = Number(query.pageSize))
+        listQuery = {
+          ...listQuery,
+          ...query
+        }
+      }
+      this.listQuery = listQuery
+    },
+    refresh() {
+      this.$router.push({
+        path: '/user/user',
+        query: this.listQuery
+      })
+    },
     handleDelete(index, row) {
       console.log(index, row)
     }

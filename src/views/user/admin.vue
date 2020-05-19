@@ -1,17 +1,15 @@
 <template>
   <div>
-    <adminedit title="管理员信息" :data="row" align="center">
-      <el-button
-        class="filter-item"
-        type="primary"
-        text-align="center"
-        icon="el-icon-edit"
-        style="margin-bottom: 5px;margin-top: 5px;margin-left: 20px"
-        @click="handleCreate"
-      >
-        新增管理员
-      </el-button>
-    </adminedit>
+    <el-button
+      class="filter-item"
+      type="primary"
+      text-align="center"
+      icon="el-icon-edit"
+      style="margin-bottom: 5px;margin-top: 5px;margin-left: 20px"
+      @click="handleCreate"
+    >
+      新增管理员
+    </el-button>
     <el-table
       :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
       style="width: 100%"

@@ -11,22 +11,22 @@ const tokens = {
 const users = {
   'admin-token': {
     roles: ['admin'],
-    introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
+    id: '10000',
+    password: '122333',
+    username: 'admin'
   },
   'editor-token': {
     roles: ['editor'],
-    introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    id: '10001',
+    password: '122333',
+    username: 'no1'
   }
 }
 
 export default [
   // user login
   {
-    url: '/user/login',
+    url: '/vue-element-admin/user/login',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -35,13 +35,13 @@ export default [
       // mock error
       if (!token) {
         return {
-          code: 60204,
+          code: -1,
           message: 'Account and password are incorrect.'
         }
       }
 
       return {
-        code: 20000,
+        code: 0,
         data: token
       }
     }
@@ -49,7 +49,7 @@ export default [
 
   // get user info
   {
-    url: '/user/info\.*',
+    url: '/vue-element-admin/user/info\.*',
     type: 'get',
     response: config => {
       const { token } = config.query
@@ -58,13 +58,13 @@ export default [
       // mock error
       if (!info) {
         return {
-          code: 50008,
+          code: -1,
           message: 'Login failed, unable to get user details.'
         }
       }
 
       return {
-        code: 20000,
+        code: 0,
         data: info
       }
     }
@@ -72,11 +72,11 @@ export default [
 
   // user logout
   {
-    url: '/user/logout',
+    url: '/vue-element-admin/user/logout',
     type: 'post',
     response: _ => {
       return {
-        code: 20000,
+        code: 0,
         data: 'success'
       }
     }

@@ -5,10 +5,10 @@
         :model="formData"
         label-position="center"
         label-width="100px"
-        style="width: 600px; margin-left:150px;"
+        style="width: 400px; margin-left:50px;"
       >
-        <el-form-item label="姓名">
-          <el-input v-model="formData.name" style="width: 300px; margin-left:-200px;" disabled />
+        <el-form-item label="ID">
+          <el-input v-model="id" placeholder="scope.$index" disabled />
         </el-form-item>
         <el-form-item label="账号">
           <el-input v-model="formData.account" disabled />
@@ -20,9 +20,9 @@
           <el-input v-model="formData.phone" disabled />
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer" align="center">
+      <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="visible = false">
-          确认
+          关闭
         </el-button>
       </div>
     </el-dialog>
@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       visible: false,
-      formData: {}
+      id: 1
     }
   },
   created() {
