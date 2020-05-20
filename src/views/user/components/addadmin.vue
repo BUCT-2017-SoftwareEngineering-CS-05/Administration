@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       visible: false,
-      submitform: { 'username': '', 'password': '', 'roles': 2 }
+      submitform: { 'username': '', 'password': '', 'roles': 0 }
     }
   },
   methods: {
