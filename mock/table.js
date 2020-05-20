@@ -92,12 +92,12 @@ export default [
     }
   },
   {
-    url: '/vue-element-admin/admin/delete',
+    url: '/ManageAdmin/Delete',
     type: 'get',
     response: config => {
       return {
         code: 0,
-        msg: '删除成功'
+        msg: '删除成功1'
       }
     }
   }

@@ -15,9 +15,9 @@ export function changepwd(data) {
   })
 }
 
-export function deleteuser(params) {
+export function deleteadmin(params) {
   return request({
-    url: '/vue-element-admin/admin/delete',
+    url: '/ManageAdmin/Delete',
     method: 'get',
     params
   })

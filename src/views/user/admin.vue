@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { getList, deleteuser } from '@/api/admin'
+import { getList, deleteadmin } from '@/api/admin'
 import adminedit from './components/adminedit'
 import Pagination from '@/components/Pagination'
 
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       list: null,
-      deleteform: { 'userid': '' },
+      deleteform: { 'userid': 0 },
       listLoading: true,
       total: 100,
       listQuery: {}
@@ -126,7 +126,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.deleteform.userid = row.userid
-        deleteuser(this.deleteform).then(response => {
+        deleteadmin(this.deleteform).then(response => {
           this.$notify({
             title: '成功',
             message: response.msg || '删除成功',
