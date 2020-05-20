@@ -23,3 +23,10 @@ export function deleteuser(params) {
   })
 }
 
+export function changemute(params) {
+  return request({
+    url: '/ManageUser/ChangeMute',
+    method: 'get',
+    params
+  })
+}

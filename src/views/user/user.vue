@@ -24,8 +24,8 @@
         </template>
       </el-table-column>
       <el-table-column class-name="coright-col" label="评论状态" width="210" align="center">
-        <template slot-scope="scope">
-          <el-tag :type="scope.row.coright | corightFilter">{{ review[scope.row.coright] }}</el-tag>
+        <template slot-scope="{ row }">
+          <el-button :type="row.coright | corightFilter" @click="changecommont(row)">{{ review[row.coright] }}</el-button>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="210" align="center">
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { getList, deleteuser } from '@/api/table'
+import { getList, deleteuser, changemute } from '@/api/table'
 import useredit from './components/useredit'
 import Pagination from '@/components/Pagination'
 
@@ -99,6 +99,18 @@ export default {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    changecommont(row) {
+      this.deleteform.userid = row.userid
+      changemute(this.deleteform).then(response => {
+        this.$message({
+          title: '成功',
+          message: response.msg || '修改成功',
+          type: 'success',
+          duration: 2000
+        })
+        this.handleFilter()
       })
     },
     parseQuery() {
@@ -146,7 +158,6 @@ export default {
             type: 'success',
             duration: 2000
           })
-          this.fetchData()
           this.handleFilter()
         })
       })
