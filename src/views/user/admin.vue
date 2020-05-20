@@ -139,7 +139,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.deleteform.id = row.userid
+        this.deleteform.id = row.id
         deleteadmin(this.deleteform).then(response => {
           this.$notify({
             title: '成功',
