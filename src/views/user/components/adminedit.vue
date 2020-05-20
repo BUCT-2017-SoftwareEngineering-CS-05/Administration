@@ -62,7 +62,7 @@ export default {
       this.submitform.userpwd = this.formData.userpwd
       this.$store.dispatch('user/ChangeAdminPwd', this.submitform)
         .then(response => {
-          this.$notify({
+          this.$message({
             title: '成功',
             message: response.msg || '密码修改成功！',
             type: 'success',

@@ -75,7 +75,8 @@ const actions = {
     const { userid, userpwd } = changeform
     return new Promise((resolve, reject) => {
       changepwd({ id: userid, userpwd: userpwd }).then(response => {
-        resolve()
+        const { msg } = response
+        resolve(msg)
       }).catch(error => {
         reject(error)
       })
