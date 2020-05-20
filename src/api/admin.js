@@ -23,10 +23,10 @@ export function deleteadmin(params) {
   })
 }
 
-export function addadmin(params) {
+export function addadmin(data) {
   return request({
     url: '/ManageAdmin/AddAdmin',
     method: 'post',
-    params
+    data
   })
 }
