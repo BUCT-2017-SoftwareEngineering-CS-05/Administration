@@ -18,7 +18,7 @@ export function changepwd(params) {
 export function deleteuser(params) {
   return request({
     url: '/vue-element-admin/user/delete',
-    method: 'post',
+    method: 'get',
     params
   })
 }

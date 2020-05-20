@@ -59,7 +59,7 @@ export default [
   },
   {
     url: '/vue-element-admin/user/delete',
-    type: 'post',
+    type: 'get',
     response: config => {
       return {
         code: 0,
@@ -93,7 +93,7 @@ export default [
   },
   {
     url: '/vue-element-admin/admin/delete',
-    type: 'post',
+    type: 'get',
     response: config => {
       return {
         code: 0,
