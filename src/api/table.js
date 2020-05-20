@@ -7,11 +7,11 @@ export function getList(params) {
     params
   })
 }
-export function changepwd(params) {
+export function changepwd(data) {
   return request({
     url: '/vue-element-admin/user/changepwd',
     method: 'post',
-    params
+    data
   })
 }
 

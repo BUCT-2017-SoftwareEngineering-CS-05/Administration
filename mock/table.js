@@ -2,7 +2,7 @@ import Mock from 'mockjs'
 
 const data = Mock.mock({
   'items|100': [{
-    userid: '@id',
+    userid: '@integer(00000,10000)',
     nickname: '@sentence(3, 5)',
     coright: '@integer(0,1)',
     userpwd: '@integer(00000,10000)'
@@ -82,7 +82,7 @@ export default [
     }
   },
   {
-    url: '/vue-element-admin/admin/changepwd',
+    url: '/ManageAdmin/Changepwd',
     type: 'post',
     response: config => {
       return {

@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { changepwd } from '@/api/table'
 export default {
   props: {
     title: {
@@ -51,7 +50,7 @@ export default {
     return {
       visible: false,
       formData: {},
-      submitform: { 'userid': '', 'userpwd': '' }
+      submitform: { 'userid': 0, 'userpwd': '' }
     }
   },
   created() {
@@ -61,14 +60,15 @@ export default {
     onSubmit() { // 修改密码1
       this.submitform.userid = this.formData.userid
       this.submitform.userpwd = this.formData.userpwd
-      changepwd(this.submitform).then(response => {
-        this.$notify({
-          title: '成功',
-          message: response.msg || '密码修改成功！',
-          type: 'success',
-          duration: 2000
+      this.$store.dispatch('user/ChangeAdminPwd', this.submitform)
+        .then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '密码修改成功！',
+            type: 'success',
+            duration: 2000
+          })
         })
-      })
     }
   }
 }
