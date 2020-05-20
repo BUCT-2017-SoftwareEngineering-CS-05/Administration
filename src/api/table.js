@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/vue-element-admin/user/list',
+    url: '/ManageUser/GetUser',
     method: 'get',
     params
   })
 }
 export function changepwd(data) {
   return request({
-    url: '/vue-element-admin/user/changepwd',
+    url: '/ManageUser/Changepwd',
     method: 'post',
     data
   })
@@ -17,7 +17,7 @@ export function changepwd(data) {
 
 export function deleteuser(params) {
   return request({
-    url: '/vue-element-admin/user/delete',
+    url: '/ManageUser/Delete',
     method: 'get',
     params
   })

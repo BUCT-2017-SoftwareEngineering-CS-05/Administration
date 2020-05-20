@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/ManageAdmin/Getadmin',
+    url: '/ManageAdmin/GetAdmin',
     method: 'get',
     params
   })
@@ -23,3 +23,10 @@ export function deleteadmin(params) {
   })
 }
 
+export function addadmin(params) {
+  return request({
+    url: '/ManageAdmin/AddAdmin',
+    method: 'post',
+    params
+  })
+}

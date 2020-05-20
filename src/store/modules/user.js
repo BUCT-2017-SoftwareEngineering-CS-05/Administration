@@ -1,5 +1,5 @@
 import { login, getInfo } from '@/api/user'
-import { changepwd } from '@/api/admin'
+import { changepwd, addadmin } from '@/api/admin'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import md5 from 'js-md5'
@@ -76,6 +76,17 @@ const actions = {
     const { userid, userpwd } = changeform
     return new Promise((resolve, reject) => {
       changepwd({ id: userid, password: md5(userpwd) }).then(response => {
+        const { msg } = response
+        resolve(msg)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  AddAdmin({ commit }, addform) {
+    const { username, password, roles } = addform
+    return new Promise((resolve, reject) => {
+      addadmin({ username: username, password: md5(password), roles: roles }).then(response => {
         const { msg } = response
         resolve(msg)
       }).catch(error => {

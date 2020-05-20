@@ -64,7 +64,7 @@
 <script>
 import { getList, deleteadmin } from '@/api/admin'
 import adminedit from './components/adminedit'
-import addadmin from './components/adminedit'
+import addadmin from './components/addadmin'
 import Pagination from '@/components/Pagination'
 
 export default {
