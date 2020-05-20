@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       list: null,
-      deleteform: { 'userid': 0 },
+      deleteform: { 'id': 0 },
       listLoading: true,
       total: 100,
       listQuery: {}
@@ -125,7 +125,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.deleteform.userid = row.userid
+        this.deleteform.id = row.userid
         deleteadmin(this.deleteform).then(response => {
           this.$notify({
             title: '成功',
