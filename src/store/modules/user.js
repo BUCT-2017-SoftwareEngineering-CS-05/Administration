@@ -75,7 +75,7 @@ const actions = {
   ChangeAdminPwd({ commit }, changeform) {
     const { userid, userpwd } = changeform
     return new Promise((resolve, reject) => {
-      changepwd({ id: userid, userpwd: userpwd }).then(response => {
+      changepwd({ id: userid, password: userpwd }).then(response => {
         const { msg } = response
         resolve(msg)
       }).catch(error => {
