@@ -1,11 +1,9 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
-
       <div class="title-container">
         <h3 class="title">管理员登录</h3>
       </div>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
@@ -20,7 +18,6 @@
           autocomplete="on"
         />
       </el-form-item>
-
       <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
         <el-form-item prop="password">
           <span class="svg-container">
@@ -44,11 +41,8 @@
           </span>
         </el-form-item>
       </el-tooltip>
-
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button>
-
     </el-form>
-
     <el-dialog title="Or connect with" :visible.sync="showDialog">
       Can not be simulated on local, so please combine you own business simulation! ! !
       <br>
@@ -60,13 +54,11 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
-
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
+      if (value.length <= 0) {
         callback(new Error('请输入正确的账号'))
       } else {
         callback()
@@ -136,7 +128,7 @@ export default {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              this.$router.push({ path: '/' })
               this.loading = false
             })
             .catch(() => {
@@ -160,14 +152,9 @@ export default {
 }
 </script>
 <style>
-/* body{
-  background-image: url(background.jpg);
-} */
 
 </style>
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
 $light_gray:#fff;
