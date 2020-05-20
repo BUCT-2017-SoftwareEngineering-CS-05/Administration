@@ -2,14 +2,14 @@ import request from '@/utils/request'
 
 export function getList(params) {
   return request({
-    url: '/vue-element-admin/admin/list',
+    url: '/ManageAdmin/Getadmin',
     method: 'get',
     params
   })
 }
 export function changepwd(data) {
   return request({
-    url: '/ManageAdmin/Changepwd/',
+    url: '/ManageAdmin/Changepwd',
     method: 'post',
     data
   })

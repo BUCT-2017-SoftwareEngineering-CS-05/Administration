@@ -9,35 +9,12 @@ const data = Mock.mock({
   }]
 })
 
-const data1 = Mock.mock({
-  'items|100': [{
-    userid: '@id',
-    nickname: '@sentence(1, 2)',
-    coright: '@integer(0,1)',
-    userpwd: '@integer(00000,10000)'
-  }]
-})
-
 export default [
   {
     url: '/vue-element-admin/user/list',
     type: 'get',
     response: config => {
       const items = data.items
-      return {
-        code: 0,
-        data: {
-          total: items.length,
-          items: items
-        }
-      }
-    }
-  },
-  {
-    url: '/vue-element-admin/user/list?page=1&pageSize=20',
-    type: 'get',
-    response: config => {
-      const items = data1.items
       return {
         code: 0,
         data: {
@@ -68,7 +45,7 @@ export default [
     }
   },
   {
-    url: '/vue-element-admin/admin/list',
+    url: '/ManageAdmin/Getadmin',
     type: 'get',
     response: config => {
       const items = data.items
