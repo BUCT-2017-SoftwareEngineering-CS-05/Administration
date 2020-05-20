@@ -2,10 +2,10 @@ import Mock from 'mockjs'
 
 const data = Mock.mock({
   'items|100': [{
-    userid: '@integer(00000,10000)',
-    nickname: '@sentence(3, 5)',
+    id: '@integer(00000,10000)',
+    username: '@sentence(3, 5)',
     coright: '@integer(0,1)',
-    userpwd: '@integer(00000,10000)'
+    password: '@integer(00000,10000)'
   }]
 })
 

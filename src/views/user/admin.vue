@@ -1,60 +1,74 @@
 <template>
-  <div class="app-container">
-    <el-table
-      v-loading="listLoading"
-      :data="list"
-      element-loading-text="Loading"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column align="center" label="ID" width="195">
-        <template slot-scope="scope">
-          {{ scope.row.userid }}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="昵称" width="395">
-        <template slot-scope="scope">
-          {{ scope.row.nickname }}
-        </template>
-      </el-table-column>
-      <el-table-column label="密码" width="210" align="center">
-        <template>
-          <span>{{ '******' }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" width="210" align="center">
-        <template slot-scope="{ row }">
-          <adminedit title="管理员信息" :data="row" align="center">
+  <div>
+    <addadmin title="新增管理员信息" :data="row" align="center">
+      <el-button
+        class="filter-item"
+        type="primary"
+        text-align="center"
+        icon="el-icon-edit"
+        style="margin-bottom: 5px;margin-top: 5px;margin-left: 20px"
+      >
+        新增管理员
+      </el-button>
+    </addadmin>
+    <div class="app-container">
+      <el-table
+        v-loading="listLoading"
+        :data="list"
+        element-loading-text="Loading"
+        border
+        fit
+        highlight-current-row
+      >
+        <el-table-column align="center" label="ID" width="195">
+          <template slot-scope="scope">
+            {{ scope.row.id }}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="昵称" width="395">
+          <template slot-scope="scope">
+            {{ scope.row.username }}
+          </template>
+        </el-table-column>
+        <el-table-column label="密码" width="210" align="center">
+          <template>
+            <span>{{ '******' }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="210" align="center">
+          <template slot-scope="{ row }">
+            <adminedit title="管理员信息" :data="row" align="center">
+              <el-button
+                size="mini"
+              >编辑</el-button>
+            </adminedit>
             <el-button
               size="mini"
-            >编辑</el-button>
-          </adminedit>
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(row)"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <pagination
-      v-show="total >= 0"
-      :total="total"
-      :page.sync="listQuery.Pagenumber"
-      :limit.sync="listQuery.PageSize"
-      @pagination="refresh"
-    />
+              type="danger"
+              @click="handleDelete(row)"
+            >删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <pagination
+        v-show="total >= 0"
+        :total="total"
+        :page.sync="listQuery.Pagenumber"
+        :limit.sync="listQuery.PageSize"
+        @pagination="refresh"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { getList, deleteadmin } from '@/api/admin'
 import adminedit from './components/adminedit'
+import addadmin from './components/adminedit'
 import Pagination from '@/components/Pagination'
 
 export default {
-  components: { adminedit, Pagination },
+  components: { adminedit, addadmin, Pagination },
   filters: {
   },
   data() {
