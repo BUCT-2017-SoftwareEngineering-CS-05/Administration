@@ -15,7 +15,14 @@ const data1 = Mock.mock({
     password: '@integer(00000,10000)'
   }]
 })
-
+const mute = Mock.mock({
+  'items|100': [{
+    userid: '@integer(00000,10000)',
+    nickname: '@sentence(3, 5)',
+    coright: '@integer(1)',
+    password: '@integer(00000,10000)'
+  }]
+})
 export default [
   {
     url: '/ManageUser/GetUser',
@@ -48,6 +55,20 @@ export default [
       return {
         code: 0,
         msg: '删除成功'
+      }
+    }
+  },
+  {
+    url: '/ManageUser/ChangeMute',
+    type: 'get',
+    response: config => {
+      const items = mute.items
+      return {
+        code: 0,
+        data: {
+          total: items.length,
+          items: items
+        }
       }
     }
   },
