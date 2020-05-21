@@ -52,7 +52,14 @@ const exh1 = Mock.mock({
     eintro: '@sentence(13, 30)'
   }]
 })
-
+const coll1 = Mock.mock({
+  'items|10': [{
+    oid: '@integer(00000,10000)',
+    midex: '@integer(00000,10000)',
+    oname: '@integer(0,10)号藏品',
+    eintro: '@sentence(100, 300)'
+  }]
+})
 export default [
   {
     url: '/ManageUser/GetUser',
@@ -194,6 +201,20 @@ export default [
         data: {
           items: exh,
           total: exh.length
+        }
+      }
+    }
+  },
+  {
+    url: '/Museum/GetCollectionByMidex',
+    type: 'get',
+    response: config => {
+      const coll = coll1.items
+      return {
+        code: 0,
+        data: {
+          items: coll,
+          total: coll.length
         }
       }
     }

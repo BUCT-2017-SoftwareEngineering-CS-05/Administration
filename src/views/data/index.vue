@@ -24,11 +24,11 @@
                   </education>
                   <!-- <commont>
                     <el-button class="info" type="text">用户评论</el-button>
-                  </commont>
-                  <collection>
+                  </commont> -->
+                  <collection :data="project.midex" align="center">
                     <el-button class="info" type="text">经典藏品</el-button>
                   </collection>
-                  <news>
+                  <!-- <news>
                     <el-button class="info" type="text">相关新闻</el-button>
                   </news> -->
                 </el-collapse-item>
@@ -71,13 +71,13 @@
 <script>
 import { getmuseum } from '@/api/museum'
 import inform from './components/inform'
-// import collection from './components/collection'
+import collection from './components/collection'
 // import commont from './components/commont'
 import education from './components/education'
 import exhibition from './components/exhibition'
 // import news from './components/news'
 export default {
-  components: { inform, education, exhibition },
+  components: { inform, education, exhibition, collection },
   data: function() {
     return {
       activeNames: ['1'],
