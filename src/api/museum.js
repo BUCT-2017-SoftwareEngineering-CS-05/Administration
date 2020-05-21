@@ -46,3 +46,11 @@ export function deletemuseum(data) {
     data
   })
 }
+
+export function deletecollection(data) {
+  return request({
+    url: '/Museum/DeleteCollectionsByOid',
+    method: 'post',
+    data
+  })
+}
