@@ -4,7 +4,7 @@ import store from '@/store'
 import { getToken } from '@/utils/auth'
 
 const service = axios.create({
-  baseURL: 'http://localhost:5002',
+  baseURL: process.env.VUE_APP_BASE_API,
   timeout: 30 * 1000
 })
 

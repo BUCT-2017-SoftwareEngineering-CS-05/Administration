@@ -22,9 +22,9 @@
                   <education :data="project.midex" align="center">
                     <el-button class="info" type="text">教育活动</el-button>
                   </education>
-                  <!-- <commont>
+                  <commont :data="project.midex" align="center">
                     <el-button class="info" type="text">用户评论</el-button>
-                  </commont> -->
+                  </commont>
                   <collection :data="project.midex" align="center">
                     <el-button class="info" type="text">经典藏品</el-button>
                   </collection>
@@ -72,12 +72,12 @@
 import { getmuseum } from '@/api/museum'
 import inform from './components/inform'
 import collection from './components/collection'
-// import commont from './components/commont'
+import commont from './components/commont'
 import education from './components/education'
 import exhibition from './components/exhibition'
 import news from './components/news'
 export default {
-  components: { inform, education, exhibition, collection, news },
+  components: { inform, education, exhibition, collection, news, commont },
   data: function() {
     return {
       activeNames: ['1'],
