@@ -16,9 +16,9 @@
                   <inform :data="project" align="center">
                     <el-button class="info" type="text">基本介绍</el-button>
                   </inform>
-                  <!-- <exhibition>
+                  <exhibition :data="project.midex" align="center">
                     <el-button class="info" type="text">展览信息</el-button>
-                  </exhibition> -->
+                  </exhibition>
                   <education :data="project.midex" align="center">
                     <el-button class="info" type="text">教育活动</el-button>
                   </education>
@@ -74,10 +74,10 @@ import inform from './components/inform'
 // import collection from './components/collection'
 // import commont from './components/commont'
 import education from './components/education'
-// import exhibition from './components/exhibition'
+import exhibition from './components/exhibition'
 // import news from './components/news'
 export default {
-  components: { inform, education },
+  components: { inform, education, exhibition },
   data: function() {
     return {
       activeNames: ['1'],

@@ -16,6 +16,13 @@ export function geteducation(params) {
   })
 }
 
+export function getexhibition(params) {
+  return request({
+    url: '/Museum/GetExhibitionByMidex',
+    method: 'get',
+    params
+  })
+}
 export function deletemuseum(data) {
   return request({
     url: '/Museum/DeleteMuseumByMidex',

@@ -44,6 +44,14 @@ const edu1 = Mock.mock({
     url: 'https//www.gmc.org.cn/detail/4127.html'
   }]
 })
+const exh1 = Mock.mock({
+  'items|10': [{
+    eid: '@integer(00000,10000)',
+    midex: '@integer(00000,10000)',
+    ename: '@integer(0,10)号展厅',
+    eintro: '@sentence(13, 30)'
+  }]
+})
 
 export default [
   {
@@ -172,6 +180,20 @@ export default [
         data: {
           items: edu,
           total: edu.length
+        }
+      }
+    }
+  },
+  {
+    url: '/Museum/GetExhibitionByMidex',
+    type: 'get',
+    response: config => {
+      const exh = exh1.items
+      return {
+        code: 0,
+        data: {
+          items: exh,
+          total: exh.length
         }
       }
     }
