@@ -1,15 +1,5 @@
 <template>
   <div>
-    <el-button
-      class="filter-item"
-      type="primary"
-      text-align="center"
-      icon="el-icon-edit"
-      style="margin-bottom: 5px;margin-top: 5px;margin-left: 20px"
-      @click="backup"
-    >
-      备份当前数据
-    </el-button>
     <div class="app-container">
       <el-table
         v-loading="listLoading"
