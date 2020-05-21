@@ -11,7 +11,7 @@
           label-width="100px"
           style="margin-left:50px;"
         >
-          <el-form-item :label="project.aid+':'">
+          <el-form-item label="">
             <div align="left">
               <a :href="project.url" target="_blank">{{ project.name }}</a>
             </div>
