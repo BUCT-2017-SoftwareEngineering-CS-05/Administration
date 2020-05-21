@@ -15,3 +15,11 @@ export function geteducation(params) {
     params
   })
 }
+
+export function deletemuseum(data) {
+  return request({
+    url: '/Museum/DeleteMuseumByMidex',
+    method: 'post',
+    data
+  })
+}

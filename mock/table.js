@@ -29,32 +29,22 @@ const mute = Mock.mock({
     password: '@integer(00000,10000)'
   }]
 })
-const edu1 = [
-  {
-    aid: 3,
-    midex: 21,
-    name: '博物馆1号',
+const museum2 = Mock.mock({
+  'items|100': [{
+    midex: '@integer(00000,10000)',
+    mname: '博物馆@integer(0,10)号',
+    mbase: '@sentence(3, 5)'
+  }]
+})
+const edu1 = Mock.mock({
+  'items|10': [{
+    aid: '@integer(00000,10000)',
+    midex: '@integer(00000,10000)',
+    name: '活动@integer(0,10)',
     url: 'https//www.gmc.org.cn/detail/4127.html'
-  },
-  {
-    aid: 4,
-    midex: 21,
-    name: '博物馆1号',
-    url: 'https//www.gmc.org.cn/detail/4127.html'
-  }
-]
-const museum2 = [
-  {
-    midex: 21,
-    mname: '博物馆1号',
-    mbase: '介绍1'
-  },
-  {
-    midex: 2,
-    mname: '博物馆2号',
-    mbase: '介绍2'
-  }
-]
+  }]
+})
+
 export default [
   {
     url: '/ManageUser/GetUser',
@@ -72,6 +62,16 @@ export default [
   },
   {
     url: '/ManageUser/GetUser',
+    type: 'post',
+    response: config => {
+      return {
+        code: 0,
+        msg: '密码修改成功！'
+      }
+    }
+  },
+  {
+    url: '/Museum/DeleteMuseumByMidex',
     type: 'post',
     response: config => {
       return {
@@ -152,11 +152,11 @@ export default [
     url: '/Museum/GetMuseums',
     type: 'get',
     response: config => {
-      const museum1 = museum2
+      const museum1 = museum2.items
       return {
         code: 0,
         data: {
-          data: museum1,
+          items: museum1,
           total: museum1.length
         }
       }
@@ -166,11 +166,11 @@ export default [
     url: '/Museum/GetEducationByMidex',
     type: 'get',
     response: config => {
-      const edu = edu1
+      const edu = edu1.items
       return {
         code: 0,
         data: {
-          data: edu,
+          items: edu,
           total: edu.length
         }
       }

@@ -1,5 +1,6 @@
 import { login, getInfo } from '@/api/user'
 import { changepwd, addadmin } from '@/api/admin'
+import { deletemuseum } from '@/api/museum'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 import md5 from 'js-md5'
@@ -57,7 +58,6 @@ const actions = {
       })
     })
   },
-
   // user logout
   logout({ commit }) {
     return new Promise((resolve, reject) => {
@@ -87,6 +87,17 @@ const actions = {
     const { username, password, roles } = addform
     return new Promise((resolve, reject) => {
       addadmin({ username: username, password: md5(password), roles: roles }).then(response => {
+        const { msg } = response
+        resolve(msg)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  deletemuseum({ commit }, mide) {
+    const { midex } = mide
+    return new Promise((resolve, reject) => {
+      deletemuseum({ midex: midex }).then(response => {
         const { msg } = response
         resolve(msg)
       }).catch(error => {

@@ -33,7 +33,7 @@
                   </news> -->
                 </el-collapse-item>
               </el-collapse></div>
-            <el-button class="delete" type="danger">删除</el-button>
+            <el-button class="delete" type="danger" @click="handleDelete(project.midex)">删除</el-button>
           </div>
         </el-card>
       </el-col>
@@ -82,14 +82,32 @@ export default {
     return {
       activeNames: ['1'],
       list: null,
-      total: null
+      total: null,
+      deleteform: { 'midex': '' }
     }
   },
   mounted() {
     this.fetchData()
   },
   methods: {
-    handleChange(val) {
+    handleDelete(midex) {
+      this.$confirm('是否删除该博物馆所有信息?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteform.midex = midex
+        this.$store.dispatch('user/deletemuseum', this.deleteform)
+          .then(response => {
+            this.$message({
+              title: '成功',
+              message: response.msg || '删除成功！',
+              type: 'success',
+              duration: 2000
+            })
+            this.fetchData()
+          })
+      })
     },
     fetchData() {
       this.listLoading = true
