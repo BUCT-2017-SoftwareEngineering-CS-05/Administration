@@ -1,10 +1,10 @@
 <template>
   <span style="padding: 0 10px">
-    <el-dialog title="教育活动" :visible.sync="visible" :modal="false" width="60%">
-      <el-button type="primary" @click="fetchData()">
+    <el-dialog title="教育活动" :visible.sync="visible" :modal="false" width="40%">
+      <el-button type="primary" @click="fetchData(data)">
         获取活动
       </el-button>
-      <el-row v-for="project in edulist" :key="project">
+      <el-row v-for="project in edulist" :key="project.aid">
         <el-form
           :model="edulist"
           label-position="center"
@@ -33,29 +33,23 @@
 import { geteducation } from '@/api/museum'
 export default {
   props: {
-    data: {
-      type: Object,
-      default() {
-        return {}
-      }
-    }
+    // eslint-disable-next-line vue/require-default-prop
+    data: Number
   },
   data() {
     return {
       visible: false,
       edulist: null,
-      mid: 0
+      formData: {},
+      getform: { 'Midex': '' }
     }
   },
-  created() {
-    this.mid = Object.assign({}, this.midex)
-    console.log(this.mid + 1)
-  },
   methods: {
-    fetchData() {
+    fetchData(midex) {
       this.listLoading = true
-      geteducation(this.mid).then(response => {
-        this.edulist = response.data.data
+      this.getform.Midex = midex
+      geteducation(this.getform).then(response => {
+        this.edulist = response.data.items
         this.total = response.data.total
         this.listLoading = false
       })

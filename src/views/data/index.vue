@@ -19,7 +19,7 @@
                   <!-- <exhibition>
                     <el-button class="info" type="text">展览信息</el-button>
                   </exhibition> -->
-                  <education :data="project" align="center">
+                  <education :data="project.midex" align="center">
                     <el-button class="info" type="text">教育活动</el-button>
                   </education>
                   <!-- <commont>
