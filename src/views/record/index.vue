@@ -21,22 +21,22 @@
       >
         <el-table-column align="center" label="操作序号" width="175">
           <template slot-scope="scope">
-            {{ scope.id }}
+            {{ scope.row.id }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="管理员" width="250">
           <template slot-scope="scope">
-            {{ scope.username }}
+            {{ scope.row.username }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="操作" width="300">
           <template slot-scope="scope">
-            {{ scope.operation }}
+            {{ scope.row.operation }}
           </template>
         </el-table-column>
         <el-table-column align="center" label="时间" width="275">
           <template slot-scope="scope">
-            {{ scope.time }}
+            {{ scope.row.time }}
           </template>
         </el-table-column>
       </el-table>
