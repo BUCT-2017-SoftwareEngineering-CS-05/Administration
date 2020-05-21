@@ -94,7 +94,7 @@ export default {
     fetchData() {
       this.listLoading = true
       getmuseum().then(response => {
-        this.list = response.data.data
+        this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
       })
