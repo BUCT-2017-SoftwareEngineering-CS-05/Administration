@@ -4,7 +4,22 @@
       <el-button type="primary" @click="fetchData(data)">
         获取活动
       </el-button>
-      <el-row v-for="project in edulist" :key="project.aid">
+      <el-table
+        :data="edulist"
+        style="width: 100%"
+      >
+        <el-table-column label="活动" width="570" show-overflow-tooltip>
+          <template slot-scope="scope">
+            <a :href="scope.row.url" target="_blank" class="buttonText">{{ scope.row.url }}</a>
+          </template>
+        </el-table-column>
+        <el-table-column>
+          <template slot-scope="{ row }">
+            <el-button class="delete" type="danger" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- <el-row v-for="project in edulist" :key="project.aid">
         <el-form
           :model="edulist"
           label-position="center"
@@ -16,8 +31,13 @@
               <a :href="project.url" target="_blank">{{ project.name }}</a>
             </div>
           </el-form-item>
+          <el-form-item>
+            <template slot-scope="{ row }">
+              <el-button class="delete" type="danger" @click="handleDelete(row)">删除</el-button>
+            </template>
+          </el-form-item>
         </el-form>
-      </el-row>
+      </el-row> -->
       <div slot="footer" class="dialog-footer" align="center">
         <el-button type="primary" @click="visible = false">
           确认
@@ -30,7 +50,7 @@
 </template>
 
 <script>
-import { geteducation } from '@/api/museum'
+import { geteducation, deleteeducation } from '@/api/museum'
 export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
@@ -41,6 +61,7 @@ export default {
       visible: false,
       edulist: null,
       formData: {},
+      deleteform: { 'Aid': '' },
       getform: { 'Midex': '' }
     }
   },
@@ -52,6 +73,25 @@ export default {
         this.edulist = response.data.items
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该教育活动?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        console.log(row)
+        this.deleteform.Aid = row.aid
+        deleteeducation(this.deleteform).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.handleFilter()
+        })
       })
     }
   }

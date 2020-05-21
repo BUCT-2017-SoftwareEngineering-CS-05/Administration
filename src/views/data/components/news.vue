@@ -23,6 +23,11 @@
           label="新闻内容"
           width="1000"
         />
+        <el-table-column>
+          <template slot-scope="{ row }">
+            <el-button class="delete" type="danger" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <pagination
         v-show="total >= 0"
@@ -44,7 +49,7 @@
 </template>
 
 <script>
-import { getnews } from '@/api/museum'
+import { getnews, deletenews } from '@/api/museum'
 import Pagination from '@/components/Pagination'
 export default {
   components: { Pagination },
@@ -58,6 +63,7 @@ export default {
       list: null,
       listLoading: true,
       total: 100,
+      deleteform: { 'Id': '' },
       listQuery: { 'Midex': '', 'PageNumber': 1, 'PageSize': 3 }
     }
   },
@@ -102,6 +108,24 @@ export default {
     handleFilter() {
       this.listQuery.PageNumber = 1
       this.refresh()
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该新闻?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteform.Id = row.id
+        deletenews(this.deleteform).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.handleFilter()
+        })
+      })
     }
   }
 }

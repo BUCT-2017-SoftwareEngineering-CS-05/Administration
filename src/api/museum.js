@@ -62,3 +62,35 @@ export function deletecollection(data) {
     data
   })
 }
+
+export function deleteeducation(data) {
+  return request({
+    url: '/Museum/DeleteEducationByAid',
+    method: 'post',
+    data
+  })
+}
+
+export function deletenews(data) {
+  return request({
+    url: '/Museum/DeleteNewsById',
+    method: 'post',
+    data
+  })
+}
+
+export function deletecomment(data) {
+  return request({
+    url: '/Museum/DeleteCommentByUseridMidex',
+    method: 'post',
+    data
+  })
+}
+
+export function deleteexhibition(data) {
+  return request({
+    url: '/Museum/DeleteExhibitionByEid',
+    method: 'post',
+    data
+  })
+}

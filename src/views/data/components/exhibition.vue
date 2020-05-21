@@ -18,6 +18,11 @@
           label="介绍"
           width="800"
         />
+        <el-table-column>
+          <template slot-scope="{ row }">
+            <el-button class="delete" type="danger" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer" align="center">
         <el-button type="primary" @click="visible = false">
@@ -32,7 +37,7 @@
 </template>
 
 <script>
-import { getexhibition } from '@/api/museum'
+import { getexhibition, deleteexhibition } from '@/api/museum'
 export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
@@ -43,6 +48,7 @@ export default {
       visible: false,
       list: null,
       formData: {},
+      deleteform: { 'Eid': '' },
       getform: { 'Midex': '' }
     }
   },
@@ -54,6 +60,24 @@ export default {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该展览信息?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteform.Eid = row.eid
+        deleteexhibition(this.deleteform).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.handleFilter()
+        })
       })
     }
   }
