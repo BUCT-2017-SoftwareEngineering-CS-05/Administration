@@ -10,7 +10,7 @@
       >
         <el-table-column label="活动" width="570" show-overflow-tooltip>
           <template slot-scope="scope">
-            <a :href="scope.row.url" target="_blank" class="buttonText">{{ scope.row.url }}</a>
+            <a :href="scope.row.url" target="_blank" class="buttonText">{{ scope.row.name }}</a>
           </template>
         </el-table-column>
         <el-table-column>
