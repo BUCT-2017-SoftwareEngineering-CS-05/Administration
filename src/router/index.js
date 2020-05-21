@@ -119,6 +119,19 @@ export const asyncRoutes = [
       }
     ]
   },
+  {
+    path: '/record',
+    component: Layout,
+    redirect: '/data',
+    children: [
+      {
+        path: '/record/index',
+        component: () => import('@/views/record/index'),
+        name: 'record',
+        meta: { title: '管理员日志', icon: 'edit' }
+      }
+    ]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]
 

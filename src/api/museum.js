@@ -41,7 +41,7 @@ export function getnews(params) {
 
 export function getcommont(params) {
   return request({
-    url: '/Museum/GetCommontByMidex',
+    url: '/Museum/GetCommentByMidex',
     method: 'get',
     params
   })
