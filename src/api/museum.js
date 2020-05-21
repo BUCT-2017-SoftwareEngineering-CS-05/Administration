@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
-export function getmuseum() {
+export function getmuseum(data) {
   return request({
-    url: 'Museum/GetMuseums',
-    method: 'get'
+    url: '/Museum/GetMuseums',
+    method: 'get',
+    data
   })
 }

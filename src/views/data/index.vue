@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col v-for="project in data" :key="project.midex" :span="2.5" :offset="1">
+      <el-col v-for="project in list" :key="project.midex" :span="2.5" :offset="1">
         <el-card :body-style="{ padding: '0px', height:'360px'}" shadow="hover" style="width: 260px;height: 500px;margin-bottom: 30px;">
           <div style="padding: 6px;height: 310px;">
             <div>
@@ -16,7 +16,7 @@
                   <inform :data="project" align="center">
                     <el-button class="info" type="text">基本介绍</el-button>
                   </inform>
-                  <exhibition>
+                  <!-- <exhibition>
                     <el-button class="info" type="text">展览信息</el-button>
                   </exhibition>
                   <education>
@@ -30,7 +30,7 @@
                   </collection>
                   <news>
                     <el-button class="info" type="text">相关新闻</el-button>
-                  </news>
+                  </news> -->
                 </el-collapse-item>
               </el-collapse></div>
             <el-button class="delete" type="danger">删除</el-button>
@@ -69,55 +69,38 @@
 }
 </style>
 <script>
+import { getmuseum } from '@/api/museum'
 import inform from './components/inform'
-import collection from './components/collection'
-import commont from './components/commont'
-import education from './components/education'
-import exhibition from './components/exhibition'
-import news from './components/news'
+// import collection from './components/collection'
+// import commont from './components/commont'
+// import education from './components/education'
+// import exhibition from './components/exhibition'
+// import news from './components/news'
 export default {
-  components: { inform, collection, exhibition, news, education, commont },
+  components: { inform },
   data: function() {
     return {
       activeNames: ['1'],
-      data: [
-        {
-          midex: '1',
-          mname: '博物馆1号',
-          mbase: '基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍'
-        }, {
-          midex: '2',
-          mname: '博物馆2号',
-          mbase: '基本介绍'
-        }, {
-          midex: '3',
-          mname: '博物馆3号',
-          mbase: '基本介绍'
-        }, {
-          midex: '4',
-          mname: '博物馆4号',
-          mbase: '基本介绍'
-        }, {
-          midex: '5',
-          mname: '博物馆5号',
-          mbase: '基本介绍'
-        }, {
-          midex: '6',
-          mname: '博物馆6号',
-          mbase: '基本介绍'
-        }, {
-          midex: '7',
-          mname: '博物馆7号',
-          mbase: '基本介绍'
-        }
-      ]
+      list: null,
+      total: null
     }
   },
-  computed: {// 计算属性
+  mounted() {
+    this.fetchData()
+    console.log(this.list)
+    console.log(this.total)
   },
   methods: {
     handleChange(val) {
       console.log(val)
+    },
+    fetchData() {
+      this.listLoading = true
+      getmuseum().then(response => {
+        this.list = response.data.items
+        this.total = response.data.total
+        this.listLoading = false
+      })
     }
   }
 }

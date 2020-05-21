@@ -23,6 +23,22 @@ const mute = Mock.mock({
     password: '@integer(00000,10000)'
   }]
 })
+// const museum = Mock.mock({
+//   'items|10': [{
+//     midex: '@integer(00000,10000)',
+//     mname: '博物馆@integer(0,10)号'
+//   }]
+// })
+const museum2 = [
+  {
+    midex: 21,
+    mname: '博物馆1号'
+  },
+  {
+    midex: 2,
+    mname: '博物馆2号'
+  }
+]
 export default [
   {
     url: '/ManageUser/GetUser',
@@ -113,6 +129,20 @@ export default [
       return {
         code: 0,
         msg: '删除成功1'
+      }
+    }
+  },
+  {
+    url: '/Museum/GetMuseums',
+    type: 'get',
+    response: config => {
+      const museum1 = museum2
+      return {
+        code: 0,
+        data: {
+          items: museum1,
+          total: museum1.length
+        }
       }
     }
   }
