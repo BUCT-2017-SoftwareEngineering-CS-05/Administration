@@ -46,8 +46,8 @@
     <pagination
       v-show="total >= 0"
       :total="total"
-      :page.sync="listQuery.page"
-      :limit.sync="listQuery.pageSize"
+      :page.sync="listQuery.PageNumber"
+      :limit.sync="listQuery.PageSize"
       @pagination="refresh"
     />
   </div>
@@ -117,12 +117,12 @@ export default {
       // 收集查询条件
       const query = Object.assign({}, this.$route.query)
       let listQuery = {
-        page: 1,
-        pageSize: 20
+        PageNumber: 1,
+        PageSize: 20
       }
       if (query) {
-        query.page && (query.page = Number(query.page))
-        query.pageSize && (query.pageSize = Number(query.pageSize))
+        query.PageNumber && (query.PageNumber = Number(query.PageNumber))
+        query.PageSize && (query.PageSize = Number(query.PageSize))
         listQuery = {
           ...listQuery,
           ...query
