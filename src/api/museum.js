@@ -39,6 +39,14 @@ export function getnews(params) {
   })
 }
 
+export function getcommont(params) {
+  return request({
+    url: '/Museum/GetCommentByMidex',
+    method: 'get',
+    params
+  })
+}
+
 export function deletemuseum(data) {
   return request({
     url: '/Museum/DeleteMuseumByMidex',
