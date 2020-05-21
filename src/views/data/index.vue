@@ -28,9 +28,9 @@
                   <collection :data="project.midex" align="center">
                     <el-button class="info" type="text">经典藏品</el-button>
                   </collection>
-                  <!-- <news>
+                  <news :data="project.midex" align="center">
                     <el-button class="info" type="text">相关新闻</el-button>
-                  </news> -->
+                  </news>
                 </el-collapse-item>
               </el-collapse></div>
             <el-button class="delete" type="danger" @click="handleDelete(project.midex)">删除</el-button>
@@ -75,9 +75,9 @@ import collection from './components/collection'
 // import commont from './components/commont'
 import education from './components/education'
 import exhibition from './components/exhibition'
-// import news from './components/news'
+import news from './components/news'
 export default {
-  components: { inform, education, exhibition, collection },
+  components: { inform, education, exhibition, collection, news },
   data: function() {
     return {
       activeNames: ['1'],

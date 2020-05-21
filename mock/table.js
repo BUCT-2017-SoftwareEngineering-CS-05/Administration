@@ -60,6 +60,14 @@ const coll1 = Mock.mock({
     eintro: '@sentence(100, 300)'
   }]
 })
+const new1 = Mock.mock({
+  'items|10': [{
+    id: '@integer(00000,10000)',
+    title: '@sentence(1, 3)',
+    publishtime: '@integer(0,10)',
+    content: '@sentence(30, 100)'
+  }]
+})
 export default [
   {
     url: '/ManageUser/GetUser',
@@ -215,6 +223,20 @@ export default [
         data: {
           items: coll,
           total: coll.length
+        }
+      }
+    }
+  },
+  {
+    url: '/Museum/GetNewsByMidex',
+    type: 'get',
+    response: config => {
+      const news = new1.items
+      return {
+        code: 0,
+        data: {
+          items: news,
+          total: news.length
         }
       }
     }

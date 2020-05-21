@@ -31,6 +31,13 @@ export function getcollection(params) {
     params
   })
 }
+export function getnews(params) {
+  return request({
+    url: '/Museum/GetNewsByMidex',
+    method: 'get',
+    params
+  })
+}
 
 export function deletemuseum(data) {
   return request({
