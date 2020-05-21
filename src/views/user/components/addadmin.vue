@@ -51,6 +51,8 @@ export default {
   },
   methods: {
     confirm() { // 新增提交
+      this.submitform.roles = Number(this.submitform.roles)
+      console.log(this.submitform)
       this.$store.dispatch('user/AddAdmin', this.submitform)
         .then(response => {
           this.$message({
