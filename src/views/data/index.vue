@@ -5,24 +5,24 @@
         <el-card :body-style="{ padding: '0px', height:'360px'}" shadow="hover" style="width: 260px;height: 500px;margin-bottom: 30px;">
           <div style="padding: 6px;height: 310px;">
             <div>
-              <div style="position: relative;top: 15px;text-align: center;"><font size="6">{{ project.name }}</font></div>
+              <div style="position: relative;top: 15px;text-align: center;"><font size="6">{{ project.mname }}</font></div>
             </div>
             <div style="">
               <img src="https://static.easyicon.net/preview/126/1266049.gif" class="image">
             </div>
             <div class="bottom">
               <el-collapse v-model="activeNames" @change="handleChange">
-                <el-collapse-item :title="project.name" :name="project.midex">
+                <el-collapse-item :title="project.mname" :name="project.midex">
                   <inform :data="project" align="center">
                     <el-button class="info" type="text">基本介绍</el-button>
                   </inform>
                   <!-- <exhibition>
                     <el-button class="info" type="text">展览信息</el-button>
-                  </exhibition>
-                  <education>
+                  </exhibition> -->
+                  <education :midex="project.midex" align="center">
                     <el-button class="info" type="text">教育活动</el-button>
                   </education>
-                  <commont>
+                  <!-- <commont>
                     <el-button class="info" type="text">用户评论</el-button>
                   </commont>
                   <collection>
@@ -73,11 +73,11 @@ import { getmuseum } from '@/api/museum'
 import inform from './components/inform'
 // import collection from './components/collection'
 // import commont from './components/commont'
-// import education from './components/education'
+import education from './components/education'
 // import exhibition from './components/exhibition'
 // import news from './components/news'
 export default {
-  components: { inform },
+  components: { inform, education },
   data: function() {
     return {
       activeNames: ['1'],
@@ -87,17 +87,14 @@ export default {
   },
   mounted() {
     this.fetchData()
-    console.log(this.list)
-    console.log(this.total)
   },
   methods: {
     handleChange(val) {
-      console.log(val)
     },
     fetchData() {
       this.listLoading = true
       getmuseum().then(response => {
-        this.list = response.data.items
+        this.list = response.data.data
         this.total = response.data.total
         this.listLoading = false
       })

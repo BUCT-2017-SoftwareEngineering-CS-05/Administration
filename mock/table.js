@@ -23,12 +23,20 @@ const mute = Mock.mock({
     password: '@integer(00000,10000)'
   }]
 })
-// const museum = Mock.mock({
-//   'items|10': [{
-//     midex: '@integer(00000,10000)',
-//     mname: '博物馆@integer(0,10)号'
-//   }]
-// })
+const edu1 = [
+  {
+    aid: 3,
+    midex: 21,
+    name: '博物馆1号',
+    url: 'https//www.gmc.org.cn/detail/4127.html'
+  },
+  {
+    aid: 4,
+    midex: 21,
+    name: '博物馆1号',
+    url: 'https//www.gmc.org.cn/detail/4127.html'
+  }
+]
 const museum2 = [
   {
     midex: 21,
@@ -144,6 +152,20 @@ export default [
         data: {
           data: museum1,
           total: museum1.length
+        }
+      }
+    }
+  },
+  {
+    url: '/Museum/GetEducationByMidex',
+    type: 'get',
+    response: config => {
+      const edu = edu1
+      return {
+        code: 0,
+        data: {
+          data: edu,
+          total: edu.length
         }
       }
     }
