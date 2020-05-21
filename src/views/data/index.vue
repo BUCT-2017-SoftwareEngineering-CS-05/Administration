@@ -90,6 +90,8 @@ export default {
     this.fetchData()
   },
   methods: {
+    handleChange(val) {
+    },
     handleDelete(midex) {
       this.$confirm('是否删除该博物馆所有信息?', '提示', {
         confirmButtonText: '确定',
