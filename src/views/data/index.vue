@@ -1,96 +1,123 @@
 <template>
   <div>
-    <div class="demo-fit">
-      <card v-for="item in dataimg" :key="item" :offset="item > 0 ? 2 : 0" :title="item.txt" :data="item.src" />
-    </div>
-    <div class="pagination">
-      <el-pagination
-        :total="totalCount"
-        hide-on-single-page="true"
-        layout="total, sizes, prev, pager, next, jumper"
-        :page-sizes="[10,20,30,40]"
-        :current-page="cur_page"
-        :page-size="pageNum"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
-    </div>
+    <el-row>
+      <el-col v-for="project in data" :key="project.midex" :span="2.5" :offset="1">
+        <el-card :body-style="{ padding: '0px', height:'360px'}" shadow="hover" style="width: 260px;height: 500px;margin-bottom: 30px;">
+          <div style="padding: 6px;height: 310px;">
+            <div>
+              <div style="position: relative;top: 15px;text-align: center;"><font size="6">{{ project.mname }}</font></div>
+            </div>
+            <div style="">
+              <img src="https://static.easyicon.net/preview/126/1266049.gif" class="image">
+            </div>
+            <div class="bottom">
+              <el-collapse v-model="activeNames" @change="handleChange">
+                <el-collapse-item :title="project.mname" :name="project.midex">
+                  <inform :data="project" align="center">
+                    <el-button class="info" type="text">基本介绍</el-button>
+                  </inform>
+                  <exhibition>
+                    <el-button class="info" type="text">展览信息</el-button>
+                  </exhibition>
+                  <education>
+                    <el-button class="info" type="text">教育活动</el-button>
+                  </education>
+                  <commont>
+                    <el-button class="info" type="text">用户评论</el-button>
+                  </commont>
+                  <collection>
+                    <el-button class="info" type="text">经典藏品</el-button>
+                  </collection>
+                  <news>
+                    <el-button class="info" type="text">相关新闻</el-button>
+                  </news>
+                </el-collapse-item>
+              </el-collapse></div>
+            <el-button class="delete" type="danger">删除</el-button>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 
 </template>
 
 <style>
-  .pagination {
-    height: 100%
+  .info {
+    padding: 6px;
+    margin-left: 0px;
+    margin-right: 60px;
+  }
+  .delete {
+    margin-top: 20px;
+    padding: 6px;
+    margin-left: 40%;
   }
   .bottom {
-    margin-top: 10px;
-    line-height: 5px;
+    margin-top: 20px;
+    line-height: 12px;
+    margin-left: 5%;
   }
-
-  .button {
-    padding: 5px;
-    float: right;
-  }
-
   .image {
-    width: 100%;
+    margin-top: 10px;
+    width: 80%;
     display: block;
   }
-
-  .clearfix:before,
-  .clearfix:after {
-      display: table;
-      content: "";
-  }
-
-  .clearfix:after {
-      clear: both
-  }
+  html,body{
+    margin:0px;
+    height:100%;
+}
 </style>
-
 <script>
-
-import card from './components/card'
-
+import inform from './components/inform'
+import collection from './components/collection'
+import commont from './components/commont'
+import education from './components/education'
+import exhibition from './components/exhibition'
+import news from './components/news'
 export default {
-  name: 'AboutUs',
-  components: { card },
-  data() {
+  components: { inform, collection, exhibition, news, education, commont },
+  data: function() {
     return {
-      dataimg: [{
-        src: 'https://static.easyicon.net/preview/126/1266049.gif',
-        txt: '1号博物馆'
-      },
-      {
-        src: 'https://static.easyicon.net/preview/126/1266049.gif',
-        txt: '2号博物馆'
-      },
-      {
-        src: 'https://static.easyicon.net/preview/126/1266049.gif',
-        txt: '3号博物馆'
-      }
-      ],
-      cur_page: 1,
-      pageNum: 1,
-      totalCount: 1
+      activeNames: ['1'],
+      data: [
+        {
+          midex: '1',
+          mname: '博物馆1号',
+          mbase: '基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍基本介绍'
+        }, {
+          midex: '2',
+          mname: '博物馆2号',
+          mbase: '基本介绍'
+        }, {
+          midex: '3',
+          mname: '博物馆3号',
+          mbase: '基本介绍'
+        }, {
+          midex: '4',
+          mname: '博物馆4号',
+          mbase: '基本介绍'
+        }, {
+          midex: '5',
+          mname: '博物馆5号',
+          mbase: '基本介绍'
+        }, {
+          midex: '6',
+          mname: '博物馆6号',
+          mbase: '基本介绍'
+        }, {
+          midex: '7',
+          mname: '博物馆7号',
+          mbase: '基本介绍'
+        }
+      ]
     }
   },
+  computed: {// 计算属性
+  },
   methods: {
-    handleSizeChange(val) {
-      this.pageNum = val // 获取page-sizes里的每页显示几条数据的值，赋给我们自定义的每页显示数量的变量pageNum
-      this.getPackData() // 展示页面信息
-    },
-    handleCurrentChange(val) {
-      this.cur_page = val
-      this.getPackData() // 确定当前页面后刷新页面
-    },
-    totalPageNum() {
-      this.$axios.get('/api/pagePackMade.do').then(res => {
-        this.totalCount = res.data[0].count // 总信息条数从数据库获取;
-      }).catch(error => {
-        console.log(error)
-      })
+    handleChange(val) {
+      console.log(val)
     }
   }
 }
