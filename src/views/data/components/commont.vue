@@ -18,6 +18,11 @@
           label="用户评论"
           width="800"
         />
+        <el-table-column>
+          <template slot-scope="{ row }">
+            <el-button class="delete" type="danger" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer" align="center">
         <el-button type="primary" @click="visible = false">
@@ -32,7 +37,7 @@
 </template>
 
 <script>
-import { getcommont } from '@/api/museum'
+import { getcommont, deletecomment } from '@/api/museum'
 export default {
   props: {
     // eslint-disable-next-line vue/require-default-prop
@@ -43,6 +48,7 @@ export default {
       visible: false,
       list: null,
       formData: {},
+      deleteform: { 'Userid': '', 'Midex': '' },
       getform: { 'Midex': '' }
     }
   },
@@ -54,6 +60,25 @@ export default {
         this.list = response.data.items
         this.total = response.data.total
         this.listLoading = false
+      })
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该评论?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteform.Midex = row.midex
+        this.deleteform.Userid = row.userid
+        deletecomment(this.deleteform).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.handleFilter()
+        })
       })
     }
   }
