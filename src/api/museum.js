@@ -26,7 +26,7 @@ export function getexhibition(params) {
 
 export function getcollection(params) {
   return request({
-    url: '/Museum/GetCollectionByMidex',
+    url: '/Museum/GetCollectionsByMidex',
     method: 'get',
     params
   })

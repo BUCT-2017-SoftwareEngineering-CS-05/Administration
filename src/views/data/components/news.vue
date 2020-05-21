@@ -58,7 +58,7 @@ export default {
       list: null,
       listLoading: true,
       total: 100,
-      listQuery: { 'Midex': '', 'PageNumber': 1, 'PageSize': 1 }
+      listQuery: { 'Midex': '', 'PageNumber': 1, 'PageSize': 3 }
     }
   },
   methods: {

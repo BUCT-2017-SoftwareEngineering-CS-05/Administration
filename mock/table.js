@@ -214,7 +214,7 @@ export default [
     }
   },
   {
-    url: '/Museum/GetCollectionByMidex',
+    url: '/Museum/GetCollectionsByMidex',
     type: 'get',
     response: config => {
       const coll = coll1.items
