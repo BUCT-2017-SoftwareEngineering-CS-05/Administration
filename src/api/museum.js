@@ -7,3 +7,11 @@ export function getmuseum(data) {
     data
   })
 }
+
+export function geteducation(params) {
+  return request({
+    url: '/Museum/GetEducationByMidex',
+    method: 'get',
+    params
+  })
+}

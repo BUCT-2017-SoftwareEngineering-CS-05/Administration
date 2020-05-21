@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { changepwd } from '@/api/table'
 export default {
   props: {
     data: {
@@ -52,16 +51,6 @@ export default {
     console.log(this.formData)
   },
   methods: {
-    onSubmit() { // 修改密码1
-      changepwd(this.submitform).then(response => {
-        this.$notify({
-          title: '成功',
-          message: response.msg || '密码修改成功！',
-          type: 'success',
-          duration: 2000
-        })
-      })
-    }
   }
 }
 </script>
