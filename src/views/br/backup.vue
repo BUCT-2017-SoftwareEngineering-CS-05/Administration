@@ -90,6 +90,7 @@ export default {
           })
         })
       })
+      this.fetchData()
     },
     backup() {
       this.$confirm('是否备份当前数据?', '提示', {
@@ -106,6 +107,7 @@ export default {
           })
         })
       })
+      this.fetchData()
     },
     restore(row) {
       this.$confirm('是否恢复该备份?', '提示', {
@@ -123,6 +125,7 @@ export default {
           })
         })
       })
+      this.fetchData()
     }
   }
 }
