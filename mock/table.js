@@ -32,11 +32,11 @@ const mute = Mock.mock({
 const museum2 = [
   {
     midex: 21,
-    mname: '博物馆1号'
+    name: '博物馆1号'
   },
   {
     midex: 2,
-    mname: '博物馆2号'
+    name: '博物馆2号'
   }
 ]
 export default [

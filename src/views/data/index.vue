@@ -5,14 +5,14 @@
         <el-card :body-style="{ padding: '0px', height:'360px'}" shadow="hover" style="width: 260px;height: 500px;margin-bottom: 30px;">
           <div style="padding: 6px;height: 310px;">
             <div>
-              <div style="position: relative;top: 15px;text-align: center;"><font size="6">{{ project.mname }}</font></div>
+              <div style="position: relative;top: 15px;text-align: center;"><font size="6">{{ project.name }}</font></div>
             </div>
             <div style="">
               <img src="https://static.easyicon.net/preview/126/1266049.gif" class="image">
             </div>
             <div class="bottom">
               <el-collapse v-model="activeNames" @change="handleChange">
-                <el-collapse-item :title="project.mname" :name="project.midex">
+                <el-collapse-item :title="project.name" :name="project.midex">
                   <inform :data="project" align="center">
                     <el-button class="info" type="text">基本介绍</el-button>
                   </inform>
