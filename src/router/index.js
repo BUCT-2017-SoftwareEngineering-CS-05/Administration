@@ -103,13 +103,7 @@ export const asyncRoutes = [
         path: '/br/backup',
         component: () => import('@/views/br/backup'),
         name: 'backup',
-        meta: { title: '备份', icon: 'documentation' }
-      },
-      {
-        path: '/br/recovery',
-        component: () => import('@/views/br/recovery'),
-        name: 'recovery',
-        meta: { title: '恢复', icon: 'documentation' }
+        meta: { title: '备份和恢复', icon: 'documentation' }
       }
     ]
   },

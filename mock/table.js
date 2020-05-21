@@ -15,6 +15,12 @@ const data1 = Mock.mock({
     password: '@integer(00000,10000)'
   }]
 })
+const br = Mock.mock({
+  'items|10': [{
+    fname: '@id',
+    time: '@integer(00000,10000)'
+  }]
+})
 const mute = Mock.mock({
   'items|100': [{
     userid: '@integer(00000,10000)',
@@ -167,6 +173,50 @@ export default [
           data: edu,
           total: edu.length
         }
+      }
+    }
+  },
+  {
+    url: '/Backup/GetAllBackups',
+    type: 'get',
+    response: config => {
+      const br1 = br.items
+      return {
+        code: 0,
+        data: {
+          items: br1,
+          total: br1.length
+        }
+      }
+    }
+  },
+  {
+    url: '/Backup/DeleteBackup',
+    type: 'get',
+    response: config => {
+      return {
+        code: 0,
+        msg: '删除成功1'
+      }
+    }
+  },
+  {
+    url: '/Backup/Restore',
+    type: 'get',
+    response: config => {
+      return {
+        code: 0,
+        msg: '恢复成功'
+      }
+    }
+  },
+  {
+    url: '/Backup/Backup',
+    type: 'get',
+    response: config => {
+      return {
+        code: 0,
+        msg: '备份成功'
       }
     }
   }
