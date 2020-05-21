@@ -18,6 +18,11 @@
           label="介绍"
           width="1000"
         />
+        <el-table-column>
+          <template slot-scope="{ row }">
+            <el-button class="delete" type="danger" @click="handleDelete(row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
       <pagination
         v-show="total >= 0"
@@ -39,7 +44,7 @@
 </template>
 
 <script>
-import { getcollection } from '@/api/museum'
+import { getcollection, deletecollection } from '@/api/museum'
 import Pagination from '@/components/Pagination'
 export default {
   components: { Pagination },
@@ -52,6 +57,7 @@ export default {
       visible: false,
       list: null,
       formData: {},
+      deleteform: { 'Oid': '' },
       listLoading: true,
       total: 100,
       listQuery: { 'Midex': '', 'PageNumber': 1, 'PageSize': 1 }
@@ -98,6 +104,26 @@ export default {
     handleFilter() {
       this.listQuery.PageNumber = 1
       this.refresh()
+    },
+    handleDelete(row) {
+      this.$confirm('是否删除该藏品?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.deleteform.Oid = row.oid
+        console.log(row)
+        console.log(this.deleteform.oid)
+        deletecollection(this.deleteform).then(response => {
+          this.$notify({
+            title: '成功',
+            message: response.msg || '删除成功',
+            type: 'success',
+            duration: 2000
+          })
+          this.handleFilter()
+        })
+      })
     }
   }
 }
